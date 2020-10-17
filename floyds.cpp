@@ -15,6 +15,7 @@ https://github.com/NickGreiner/CSC-2710-Floyds-Program
 #include <string>
 #include <algorithm>
 #include <iterator>
+#include <sstream>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ vector<vector<int>> loadMatrix(string matrixFile);
 void displayMatrix(vector<vector<int>> matrix);
 // void writeMatrix(vector<vector<int>> matrix);
 
-int main {
+int main() {
   string matrixFile;
   vector<vector<int>> initial;
   vector<vector<int>> final;
@@ -38,7 +39,7 @@ int main {
   final = floyd(initial);
 
   cout << "Initial Matrix:" << endl;
-  displayMatrix(inital);
+  displayMatrix(initial);
 
   cout << "Final Matrix:" << endl;
   displayMatrix(final);
@@ -46,7 +47,7 @@ int main {
 }
 
 vector<vector<int>> floyd(vector<vector<int>> matrix) {
-  vector<vector<int>> testMatrix = vector<vector<int>> matrix;
+  vector<vector<int>> testMatrix = matrix;
 
   int i, j, k;
   int n = testMatrix.size();
@@ -63,10 +64,41 @@ vector<vector<int>> floyd(vector<vector<int>> matrix) {
 }
 
 vector<vector<int>> loadMatrix(string matrixFile) {
-  ifstream is(matrixFile);
+  vector<vector<int>> matrix;
 
-  stringstream ss(s);
-  istream_iterator<std::string> begin(ss);
-  istream_iterator<std::string> end;
-  vector<string> vstrings(begin, end);
+  ifstream ifs(matrixFile);
+  string tempstr;
+  int tempint;
+
+  int edges, vertices;
+
+  ifs >> vertices;
+  ifs >> edges;
+
+  while (getline(ifs, tempstr)) {
+    istringstream iss(tempstr);
+    vector<int> tempMatrix;
+    while (iss >> tempint) {
+      tempMatrix.push_back(tempint);
+    }
+    matrix.push_back(tempMatrix);
+  }
+
+  for (auto row : matrix) {
+    for (auto el : row) {
+      cout << el << ' ';
+    }
+    cout << "\n";
+  }
+
+  return matrix;
+}
+
+void displayMatrix(vector<vector<int>> matrix) {
+  for (auto row : matrix) {
+    for (auto el : row) {
+      cout << el << ' ';
+    }
+    cout << "\n";
+  }
 }
