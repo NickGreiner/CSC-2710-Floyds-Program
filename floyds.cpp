@@ -14,6 +14,7 @@ https://github.com/NickGreiner/CSC-2710-Floyds-Program
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <iterator>
 
 using namespace std;
 
@@ -62,5 +63,10 @@ vector<vector<int>> floyd(vector<vector<int>> matrix) {
 }
 
 vector<vector<int>> loadMatrix(string matrixFile) {
-  
+  ifstream is(matrixFile);
+
+  stringstream ss(s);
+  istream_iterator<std::string> begin(ss);
+  istream_iterator<std::string> end;
+  vector<string> vstrings(begin, end);
 }
